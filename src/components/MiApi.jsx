@@ -17,12 +17,23 @@ export default function MiApi({ setInfo, setDataInicial }) {
             const data = await response.json()
             // console.log("Se obtiene Data de Pokemon.");
             setInfo(data.results)
-            setDataInicial(data.results)
-            console.log(data.results)
+            const urls = await Promise.all(data.results.map((result) => getUrlData(result.url)))
+            setDataInicial(urls)
+            // console.log(data.results.map(result => result.url))
         }
         catch (error) {
             console.log(error)
         }
     }
-    return
+
+    const getUrlData = async (url) => {
+        try {
+            const response = await fetch(url)
+            const data = await response.json()
+            return data
+        }
+        catch (error) {
+            console.log(error)
+        }
+    }
 }

@@ -31,7 +31,7 @@ function NavSearch(props) {
               placeholder="Buscar..."
               className="me-2"
               onChange={props.onChange}
-
+              value={props.value}
             />
             {/* <Button variant="outline-light">Buscar</Button> */}
           </Form>
