@@ -1,4 +1,3 @@
-import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -6,15 +5,15 @@ import logo from '../assets/imgs/logo.PNG'
 
 function NavSearch(props) {
   return (
-    <Navbar bg="danger" variant="dark" className="p-0">
-      <Container >
-        <Navbar.Brand href="#home">
+    <Navbar bg="danger" variant="dark" className="p-1 d-flex justify-content-center align-items-center">
+      <div className="p-1 d-flex justify-content-center">
+        <Navbar.Brand href="#home" className="d-flex justify-content-center align-items-center">
           <img
             alt=""
             src={logo}
             width="30"
             height="30"
-            className="d-inline-block align-top"
+            className="d-inline-block align-top mx-2"
           />{' '}
           Busca un pokémon:
         </Navbar.Brand>
@@ -36,7 +35,7 @@ function NavSearch(props) {
             {/* <Button variant="outline-light">Buscar</Button> */}
           </Form>
         </Navbar>
-      </Container>
+      </div>
     </Navbar>
   );
 }

@@ -1,26 +1,25 @@
 import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 // components
+import Header from "./components/Header";
 import MiApi from "./components/MiApi";
 import Button from 'react-bootstrap/Button';
 import NavSearch from "./components/NavSearch";
 
 function App() {
 
-  const title = "Lista de Pokémon"
-
   // 3. estado "infoPokemon" almacenará los valores traídos desde la API
-  const [infoPokemon, setInfoPokemon] = useState([]);
-  const [dataInicial, setDataInicial] = useState([])
+  const [infoPokemon, setInfoPokemon] = useState([])
+  const [dataPokemon, setDataPokemon] = useState([])
 
   const [search, setSearch] = useState("")
   const [isSorted, setIsSorted] = useState(false)
 
   const filterInfoPokemon = infoPokemon.filter((pokemon) => pokemon.name.toUpperCase().includes(search.toUpperCase().trim()))
 
-  function ordenarNombres() {
+  function sortNames() {
     setIsSorted(true)
   }
 
@@ -28,7 +27,7 @@ function App() {
     setIsSorted(false)
   }
 
-  function logicaOrdenar(a, b) {
+  function logicOrder(a, b) {
     if (a.name < b.name) {
       return -1;
     }
@@ -36,41 +35,51 @@ function App() {
 
   return (
     <div className="App">
-      <h1 className="m-3 text-align: center">{title}</h1>
+      <Header text="Lista de Pokémon" />
       <NavSearch
         onChange={(e) => setSearch(e.target.value.trimStart())}
         value={search}
       />
-      <Button
-        variant="danger"
-        className="m-3 text-align: center"
-        onClick={ordenarNombres}
-        disabled={isSorted}
+      <div className="m-3 d-flex justify-content-center">
+        <Button
+          variant="danger"
+          className="m-3 text-align: center"
+          onClick={sortNames}
+          disabled={isSorted}
 
-      >
-        Ordenar nombres
-      </Button>
+        >
+          Ordenar nombres A-Z
+        </Button>
 
-      <Button
-        variant="secondary"
-        className="m-3 text-align: center"
-        onClick={reset}
-        disabled={!isSorted}
-      >
-        Reset
-      </Button>
+        <Button
+          variant="secondary"
+          className="m-3"
+          onClick={reset}
+          disabled={!isSorted}
+        >
+          Reset
+        </Button>
+
+      </div>
 
       <MiApi
-        setInfo={setInfoPokemon}
-        setDataInicial={setDataInicial}
+        setInfoPokemon={setInfoPokemon}
+        setDataPokemon={setDataPokemon}
       />
 
       {/* 4. Mostramos la info */}
-      {filterInfoPokemon.sort((a, b) => isSorted ? logicaOrdenar(a, b) : null).map((pokemon) => (
-        <div className="m-3 text-align: center">
-          <ul className="m-3 text-align: center" key={Math.random()}>
-            <li >{pokemon.name.toUpperCase()}</li>
-            <img src={dataInicial.find(data => data.name === pokemon.name)?.sprites.versions['generation-i']['red-blue'].front_default} alt="poke" width="120" height="120"></img>
+      {filterInfoPokemon.sort((a, b) => isSorted ? logicOrder(a, b) : null).map((pokemon) => (
+        <div
+          className="m-3 d-flex justify-content-center"
+          key={Math.random()}
+        >
+          <ul className="m-3" key={Math.random()}>
+            <li>
+              <b>N°{dataPokemon.find(data => data.name === pokemon.name)?.id} - {pokemon.name.toUpperCase()}</b>
+            </li>
+            <img
+              key={Math.random()}
+              src={dataPokemon.find(data => data.name === pokemon.name)?.sprites.versions['generation-i']['red-blue'].front_default} alt="poke_img" width="120" height="120"></img>
           </ul>
         </div>
       ))}
