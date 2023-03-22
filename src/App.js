@@ -10,10 +10,8 @@ import NavSearch from "./components/NavSearch";
 
 function App() {
 
-  // 3. estado "infoPokemon" almacenará los valores traídos desde la API
   const [infoPokemon, setInfoPokemon] = useState([])
   const [dataPokemon, setDataPokemon] = useState([])
-
   const [search, setSearch] = useState("")
   const [isSorted, setIsSorted] = useState(false)
 
@@ -67,7 +65,7 @@ function App() {
         setDataPokemon={setDataPokemon}
       />
 
-      {/* 4. Mostramos la info */}
+      {/* Mostrar info */}
       {filterInfoPokemon.sort((a, b) => isSorted ? logicOrder(a, b) : null).map((pokemon) => (
         <div
           className="m-3 d-flex justify-content-center"

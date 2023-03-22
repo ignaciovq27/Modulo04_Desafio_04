@@ -32,7 +32,6 @@ function NavSearch(props) {
               onChange={props.onChange}
               value={props.value}
             />
-            {/* <Button variant="outline-light">Buscar</Button> */}
           </Form>
         </Navbar>
       </div>
